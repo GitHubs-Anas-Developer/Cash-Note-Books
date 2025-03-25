@@ -46,16 +46,19 @@ function App() {
     },
   });
 
+  console.log(data);
+  
+
   return (
     <div className="bg-gradient-to-r from-indigo-50 to-blue-50  mt-16">
       <Navbar user={data} />
       <Routes>
-        {/* <Route path="/" element={<AuthCheck />} /> */}
+        <Route path="/" element={<AuthCheck />} />
 
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile user={data} />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={ <Dashboard />} />
         <Route path="/create-cashbook" element={<Cashbook />} />
         <Route path="/summary" element={<Summary />} />
         <Route path="/cash-in" element={<CashIn />} />

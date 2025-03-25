@@ -24,7 +24,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://cash-note-books-1.onrender.com",
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );

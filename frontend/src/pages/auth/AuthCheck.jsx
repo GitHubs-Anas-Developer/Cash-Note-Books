@@ -19,6 +19,9 @@ function AuthCheck({ children }) {
     staleTime: 0,
   });
 
+
+console.log("data",data);
+
   // Redirect to login if user is not authenticated
   useEffect(() => {
     if (data===undefined || !data.user) {
