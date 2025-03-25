@@ -21,8 +21,8 @@ function Navbar({ user }) {
 
   return (
     <div className="relative">
-      {/* Top Navbar */}
-      <nav className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 text-white p-4 shadow-md fixed top-0 left-0 w-full z-50">
+      {
+        user ? <nav className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 text-white p-4 shadow-md fixed top-0 left-0 w-full z-50">
         <div className="flex justify-between items-center max-w-7xl mx-auto">
           {/* Logo */}
           <div className="text-3xl font-semibold p-2 border bg-white rounded-xl">
@@ -72,7 +72,10 @@ function Navbar({ user }) {
             </Link>
           </div>
         </div>
-      </nav>
+      </nav> : ""
+      }
+      {/* Top Navbar */}
+      
 
       {/* Sidebar */}
       <div

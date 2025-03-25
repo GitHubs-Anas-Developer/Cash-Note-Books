@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { baseUrl } from "../../constant/Url";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // FaEye for eye, FaEyeSlash for eyeOff
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [loginForm, setLoginForm] = useState({
@@ -49,7 +50,7 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-teal-400 flex justify-center items-center">
+    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-teal-400 flex justify-center items-center ">
       <div className="w-full max-w-sm p-6 bg-white shadow-lg rounded-xl">
         <h1 className="text-3xl font-semibold text-center text-gray-800 mb-8">
           Welcome Back
@@ -119,12 +120,12 @@ function Login() {
         {/* Sign Up Redirect */}
         <p className="mt-6 text-center text-sm text-gray-600">
           Don't have an account?{" "}
-          <a
-            href="/signup"
+          <Link
+            to={"/signup"}
             className="text-blue-600 hover:underline focus:outline-none"
           >
             Sign up here
-          </a>
+          </Link>
         </p>
       </div>
     </div>

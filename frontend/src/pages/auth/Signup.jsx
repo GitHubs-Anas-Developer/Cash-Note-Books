@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { baseUrl } from "../../constant/Url";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // FaEye for eye, FaEyeSlash for eyeOff
-
+import { Link } from "react-router-dom";
 function Signup() {
   const [registerForm, setRegisterForm] = useState({
     username: "",
@@ -57,7 +57,7 @@ function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-teal-400">
+    <div className="min-h-screen  flex items-center justify-center bg-gradient-to-br from-blue-500 to-teal-400">
       <div className="w-full max-w-sm p-6 bg-white shadow-md rounded-lg">
         <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
           Sign Up
@@ -76,7 +76,7 @@ function Signup() {
               id="username"
               name="username"
               placeholder="Enter your username"
-              className="w-full mt-1 border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full mt-1 border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 border"
               value={registerForm.username}
               onChange={handleInputChange}
             />
@@ -95,7 +95,7 @@ function Signup() {
               id="email"
               name="email"
               placeholder="Enter your email"
-              className="w-full mt-1 border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full mt-1 border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 border"
               value={registerForm.email}
               onChange={handleInputChange}
             />
@@ -114,7 +114,7 @@ function Signup() {
               id="password"
               name="password"
               placeholder="Enter your password"
-              className="w-full mt-1 border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full mt-1 border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 border"
               value={registerForm.password}
               onChange={handleInputChange}
             />
@@ -140,7 +140,7 @@ function Signup() {
               id="confirmPassword"
               name="confirmPassword"
               placeholder="Confirm your password"
-              className="w-full mt-1 border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full mt-1 border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 border"
               value={registerForm.confirmPassword}
               onChange={handleInputChange}
             />
@@ -170,12 +170,12 @@ function Signup() {
         </form>
         <p className="mt-6 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <a
-            href="/login"
+          <Link
+            to={"/login"}
             className="text-blue-600 hover:underline focus:outline-none"
           >
             Log in here
-          </a>
+          </Link>
         </p>
       </div>
     </div>
