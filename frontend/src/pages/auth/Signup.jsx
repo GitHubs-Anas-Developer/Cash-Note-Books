@@ -57,7 +57,7 @@ function Signup() {
   };
 
   return (
-    <div className="min-h-screen  flex items-center justify-center bg-gradient-to-br from-blue-500 to-teal-400">
+    <div className="min-h-screen  flex items-center justify-center bg-gradient-to-br from-blue-500 to-teal-400 p-2">
       <div className="w-full max-w-sm p-6 bg-white shadow-md rounded-lg">
         <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
           Sign Up

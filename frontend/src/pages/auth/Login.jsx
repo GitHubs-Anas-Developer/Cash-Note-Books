@@ -50,7 +50,7 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-teal-400 flex justify-center items-center ">
+    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-teal-400 flex justify-center items-center p-2 ">
       <div className="w-full max-w-sm p-6 bg-white shadow-lg rounded-xl">
         <h1 className="text-3xl font-semibold text-center text-gray-800 mb-8">
           Welcome Back
