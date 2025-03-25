@@ -49,7 +49,7 @@ function App() {
   console.log(data);
 
   return (
-    <div className="bg-gradient-to-r from-indigo-50 to-blue-50  ">
+    <div className="bg-gradient-to-r from-indigo-50 to-blue-50  mt-16">
       <Navbar user={data} />
       <Routes>
         <Route path="/" element={<AuthCheck />} />
