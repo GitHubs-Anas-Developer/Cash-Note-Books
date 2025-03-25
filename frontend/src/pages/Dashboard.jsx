@@ -13,7 +13,7 @@ function Dashboard() {
     queryKey: ["cashbook"],
     queryFn: async () => {
       const response = await axios.get(`${baseUrl}/api/cashbook`, {
-        withCredentials: "include",
+        withCredentials: "true",
       });
       return response.data;
     },
