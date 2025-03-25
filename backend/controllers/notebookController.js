@@ -104,12 +104,68 @@ const getNotebookById = async (req, res) => {
     });
   }
 };
+const updateNotebook = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    if (!userId) {
+      return res.status(400).json({
+        message: "Unauthorized",
+      });
+    }
+
+    const { id } = req.params; // Get notebook ID from URL parameters
+    const { heading, description, notes } = req.body; // Get updated data from the request body
+
+    // Ensure required fields are provided
+    if (!heading) {
+      return res.status(400).json({
+        message: "Heading is required",
+      });
+    }
+
+    // Find the notebook by its ID and the userId to ensure the user can only update their own notebook
+    const notebook = await Notebook.findOne({ _id: id, userId: userId });
+
+    if (!notebook) {
+      return res.status(404).json({
+        message:
+          "Notebook not found or you are not authorized to update this notebook",
+      });
+    }
+
+    // Update the notebook with the new heading and description
+    notebook.heading = heading;
+    notebook.description = description;
+
+    // Update the notes if provided
+    if (Array.isArray(notes)) {
+      notebook.notes.forEach((item, index) => {
+        if (notes[index]) {
+          item.title = notes[index].title || item.title; // Update the title if provided
+          item.content = notes[index].content || item.content; // Update the content if provided
+        }
+      });
+    }
+
+    // Save the updated notebook
+    await notebook.save();
+
+    return res.status(200).json({
+      message: "Notebook updated successfully",
+      notebook,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
 
 const deleteNotebook = async (req, res) => {
   try {
     const userId = req.user._id;
-
-    console.log("userId", userId);
 
     if (!userId) {
       return res.status(400).json({
@@ -142,5 +198,6 @@ module.exports = {
   createNotebook,
   getNotebooks,
   getNotebookById,
+  updateNotebook,
   deleteNotebook,
 };

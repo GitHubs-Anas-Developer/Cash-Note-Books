@@ -11,31 +11,16 @@ const createUser = async (req, res) => {
       });
     }
 
-    const { users, amount, totalAmount, category } = req.body;
+    const { totalAmount, category } = req.body;
 
     // Validate required fields
     if (!totalAmount) {
       return res.status(400).json({ message: "totalAmount is required" });
     }
 
-    if (!Array.isArray(users) || users.length === 0) {
-      return res.status(400).json({ message: "Users array cannot be empty" });
-    }
-
-    // Validate individual user amounts if necessary
-    users.forEach((user) => {
-      if (user.amount <= 0) {
-        return res.status(400).json({
-          message: `Amount for user ${user.name} should be greater than zero.`,
-        });
-      }
-    });
-
     // Create the new SpinWin entry
     const newEntry = new SpinWin({
       userId,
-      users,
-      amount,
       totalAmount,
       category,
     });
@@ -78,7 +63,7 @@ const getSpinParticipants = async (req, res) => {
 
     res.status(200).json({
       message: "Participants fetched successfully",
-      data: participants,
+      participants,
     });
   } catch (error) {
     res.status(500).json({
@@ -109,7 +94,7 @@ const getSpinSingleParticipants = async (req, res) => {
     }
 
     return res.status(200).json({
-      data: spin,
+      spin,
     });
   } catch (error) {
     return res.status(500).json({
@@ -120,42 +105,62 @@ const getSpinSingleParticipants = async (req, res) => {
 };
 const addUser = async (req, res) => {
   try {
-    const { id } = req.params; // Retrieve the spin ID from the route parameter
+    // Step 1: Authenticate user
+    const userId = req.user._id; // Assuming the user is authenticated, and req.user is populated by middleware
+    if (!userId) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
 
-    const { name, amount } = req.body; // Retrieve name and amount from the request body
-    // Validate if both name and amount are provided
+    // Step 2: Get the SpinWin ID from params
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Spin ID is required" });
+    }
+
+    // Step 3: Extract name and amount from the request body
+    const { name, amount } = req.body;
+
     if (!name || !amount) {
       return res
         .status(400)
         .json({ message: "Please provide both name and amount" });
     }
 
-    // Find the specific SpinWin document by its ID
-    const spin = await SpinWin.findById(id); // findById automatically converts to ObjectId
-
-    // Check if the SpinWin document exists
+    // Step 4: Find the SpinWin document that matches the ID and user
+    const spin = await SpinWin.findOne({ _id: id, userId });
     if (!spin) {
-      return res.status(404).json({ message: "Spin not found" });
+      return res
+        .status(404)
+        .json({ message: "Spin not found or unauthorized" });
     }
 
-    // Push the new user to the users array in the SpinWin document
+    console.log("spin", spin);
+
+    // Step 5: Add a new user to the SpinWin's users array
     spin.users.push({
       name,
-      amount,
+      amount: parseInt(amount),
     });
 
     // Save the updated SpinWin document
     await spin.save();
 
-    // Return a success response
-    res.status(201).json({ message: "User added successfully" });
+    // Step 6: Respond with success
+    return res.status(201).json({
+      message: "User added successfully",
+      spin,
+    });
   } catch (error) {
+    // Step 7: Handle server errors
     return res.status(500).json({
       message: "Server Error",
       error: error.message,
     });
   }
 };
+
 const getWinUser = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -202,10 +207,141 @@ const getWinUser = async (req, res) => {
   }
 };
 
+const deleteSpinGroup = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({
+        message: "Spin Group ID is required.",
+      });
+    }
+
+    const spinGroup = await SpinWin.findOne({ _id: id, userId });
+
+    if (!spinGroup) {
+      return res.status(404).json({
+        message:
+          "Spin Group not found or you don't have permission to delete this group.",
+      });
+    }
+
+    await spinGroup.deleteOne();
+
+    return res.status(200).json({
+      message: "Spin Group deleted successfully.",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error", // Generic server error message
+      error: error.message, // Include the actual error message for debugging
+    });
+  }
+};
+
+const updateSpinGroup = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Spin Group ID is required." });
+    }
+
+    const { category, totalAmount, users } = req.body;
+
+    if (!category || !totalAmount) {
+      return res
+        .status(400)
+        .json({ message: "Category and totalAmount are required." });
+    }
+
+    const spin = await SpinWin.findOne({ _id: id, userId });
+
+    if (!spin) {
+      return res.status(404).json({ message: "Spin Group not found" });
+    }
+
+    // Update spin group
+    const updatedSpin = await SpinWin.findByIdAndUpdate(
+      id,
+      {
+        category,
+        totalAmount,
+        users: users.map((user) => ({
+          _id: user._id, // Assuming each user has an ID
+          name: user.name,
+          amount: user.amount,
+        })),
+      },
+      { new: true } // Return the updated document
+    );
+
+    res
+      .status(200)
+      .json({ message: "Spin Group updated successfully", spin: updatedSpin });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error",
+      error: error.message, // Include the actual error message for debugging
+    });
+  }
+};
+
+const deleteSpinGroupUser = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    if (!userId) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+
+    const { spinId, spinGroupUserId } = req.params;
+
+    // Find a single SpinWin document (not an array)
+    const spinGroup = await SpinWin.findOne({ _id: spinId, userId });
+
+    if (!spinGroup) {
+      return res.status(404).json({ message: "Spin group not found" });
+    }
+
+    // Filter out the user to be deleted
+    spinGroup.users = spinGroup.users.filter(
+      (user) => user._id.toString() !== spinGroupUserId
+    );
+
+    // Save the updated document
+    await spinGroup.save();
+
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   createUser,
   getSpinParticipants,
   getSpinSingleParticipants,
   addUser,
   getWinUser,
+  deleteSpinGroup,
+  updateSpinGroup,
+  deleteSpinGroupUser,
 };

@@ -28,10 +28,9 @@ const CashbookSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["completed", "pending"],
+      enum: ["received", "paid", "pending"],
       default: "pending",
     },
-    note: { type: String, default: "" },
     date: { type: Date, default: Date.now },
   },
   { timestamps: true }

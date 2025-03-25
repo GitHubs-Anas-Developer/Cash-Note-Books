@@ -4,7 +4,7 @@ const generateToken = require("../utils/generateToken");
 
 const registerUser = async (req, res) => {
   try {
-    const { fullname, email, password } = req.body;
+    const { username, email, password } = req.body;
 
     // Email validation regex
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -38,7 +38,7 @@ const registerUser = async (req, res) => {
 
     // Create new user
     const newUser = new User({
-      fullName: fullname,
+      username,
       email,
       password: hashPassword,
     });
@@ -57,12 +57,10 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  console.log();
-
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email });
 
     if (!user) {
       return res.status(400).json({
@@ -88,20 +86,28 @@ const loginUser = async (req, res) => {
 };
 
 const userLogout = (req, res) => {
-  try {
-    // Clear the JWT token stored in the cookies (if using cookies)
-    res.clearCookie("jwt", { httpOnly: true, secure: true });
+  console.log(res.clearCookie("jwt"));
 
-    // Send a success message to the client
+  try {
+    res.clearCookie("jwt", {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production", // Secure cookies in production
+    });
+
     res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    // Handle any unexpected errors
+    res.status(500).json({
+      message: "An error occurred during logout. Please try again.",
+    });
   }
 };
+
 const getUser = async (req, res) => {
   try {
     const userId = req.user._id;
-    
+
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
     }
@@ -119,7 +125,6 @@ const getUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 module.exports = {
   registerUser,

@@ -80,7 +80,9 @@ const updateCashbookEntry = async (req, res) => {
     const userId = req.user._id;
     const { id } = req.params;
 
-    const { text, transactionType, amount, status, note } = req.body;
+    const { name, amount, status, transactionType } = req.body;
+
+    console.log(req.body);
 
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -90,14 +92,22 @@ const updateCashbookEntry = async (req, res) => {
 
     if (!entry) return res.status(404).json({ message: "Cashbooks not found" });
 
+    let cashIn;
+    let cashOut;
+
+    if (transactionType === "cash_in") {
+      cashIn = amount;
+    } else {
+      cashOut = amount;
+    }
+
     entry = await Cashbooks.findByIdAndUpdate(
       id,
       {
-        textOrPersons: text,
-        transactionType,
-        amount,
+        name: name,
+        cash_in: cashIn,
+        cash_out: cashOut,
         status,
-        note,
       },
       { new: true }
     );
@@ -111,15 +121,14 @@ const updateCashbookEntry = async (req, res) => {
 const deleteCashbookEntry = async (req, res) => {
   try {
     const userId = req.user._id;
-    const { id } = req.params;    
-    
+    const { id } = req.params;
 
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
     // Find the cashbook entry by ID
-    const entry = await Cashbooks.findOne({_id:id});
+    const entry = await Cashbooks.findOne({ _id: id });
 
     if (!entry) {
       return res.status(404).json({ message: "Cashbook entry not found" });
@@ -190,7 +199,7 @@ const getCashIn = async (req, res) => {
       user: userId,
       status: "pending",
       cash_in: { $gt: 1 }, // Filtering where 'cashIn' is less than 1
-    }).select("name date cashIn cash_in status");
+    }).select("name date cashIn cash_in status transactionType");
 
     console.log("cashIn", cashIn);
 
@@ -220,7 +229,7 @@ const getCashOut = async (req, res) => {
       user: userId,
       status: "pending",
       cash_out: { $gt: 1 }, // Filtering where 'cash_out' is greater than 1
-    }).select("name date cash_out status"); // Corrected to select 'cash_out' instead of 'cashIn' or 'cash_in'
+    }).select("name date cash_out status transactionType"); // Corrected to select 'cash_out' instead of 'cashIn' or 'cash_in'
 
     // If no cash out data found
     if (cashOut.length === 0) {
@@ -234,6 +243,55 @@ const getCashOut = async (req, res) => {
   }
 };
 
+const getReceived = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const cashReceived = await Cashbooks.find({
+      user: userId,
+      status: "received",
+    }).select("-cash_out");
+
+    if (cashReceived.length === 0) {
+      return res.status(404).json({
+        message: "Cash received not found",
+      });
+    }
+
+    return res.status(200).json({ cashReceived });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error: " + error.message });
+  }
+};
+
+const getPaid = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const cashPaid = await Cashbooks.find({
+      user: userId,
+      status: "paid",
+    }).select("-cash_in");
+
+    if (cashPaid.length === 0) {
+      return res.status(404).json({
+        message: "Cash paid not found",
+      });
+    }
+
+    return res.status(200).json({ cashPaid });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error: " + error.message });
+  }
+};
+
 module.exports = {
   createCashbookEntry,
   getCashbookEntries,
@@ -243,4 +301,6 @@ module.exports = {
   getCashBooksSummary,
   getCashIn,
   getCashOut,
+  getReceived,
+  getPaid,
 };

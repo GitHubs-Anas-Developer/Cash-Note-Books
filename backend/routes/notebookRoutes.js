@@ -5,13 +5,14 @@ const {
   createNotebook,
   getNotebooks,
   getNotebookById,
+  updateNotebook,
   deleteNotebook,
 } = require("../controllers/notebookController");
 
 router.post("/create", protectRoute, createNotebook);
 router.get("/", protectRoute, getNotebooks);
 router.get("/single/:id", protectRoute, getNotebookById);
-// router.put('/:id', notebookController.updateNotebook);
+router.put("/:id", protectRoute, updateNotebook);
 router.delete("/:id", protectRoute, deleteNotebook);
 
 module.exports = router;

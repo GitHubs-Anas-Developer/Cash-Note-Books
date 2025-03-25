@@ -9,6 +9,7 @@ const cashbookRoutes = require("./routes/cashbookRoutes");
 const notebookRoutes = require("./routes/notebookRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
 const spinRoutes = require("./routes/spinWinRoutes");
+const protectRoute = require("./middleware/protectRoute");
 // Load environment variables
 dotenv.config();
 
@@ -23,17 +24,24 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://cash-book-1.onrender.com",
     credentials: true,
   })
 );
 
 app.use(cookieParser());
+
+
+
 app.use(
   express.urlencoded({
     urlencoded: true,
   })
 );
+
+app.get("/authCheck", protectRoute, (req, res) => {
+  res.status(200).json({ message: "You have access!", user: req.user });
+});
 
 // Route handlers
 app.use("/api/auth", authRoutes);

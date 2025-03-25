@@ -6,7 +6,6 @@ const generateToken = (userId, res) => {
     expiresIn: "15d", // JWT token expiration (15 days)
   });
 
-
   // Set the cookie expiration to match the token's expiration (15 days)
   res.cookie("jwt", token, {
     maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days in milliseconds (corrected)
@@ -15,5 +14,6 @@ const generateToken = (userId, res) => {
     secure: process.env.NODE_ENV === "production", // Secure cookies in production
   });
 };
+
 
 module.exports = generateToken;
