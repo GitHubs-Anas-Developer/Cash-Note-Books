@@ -24,10 +24,13 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://cash-note-books-1.onrender.com",
-    credentials: true,
+    origin: process.env.CLIENT_URL || "http://localhost:3000", // Use frontend URL
+    credentials: true, // Allow cookies
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
   })
 );
+
 
 app.use(cookieParser());
 
