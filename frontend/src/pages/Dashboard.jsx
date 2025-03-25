@@ -13,7 +13,7 @@ function Dashboard() {
     queryKey: ["cashbook"],
     queryFn: async () => {
       const response = await axios.get(`${baseUrl}/api/cashbook`, {
-        withCredentials: "true",
+        withCredentials: true, // ✅ Fix: use true instead of "include"
       });
       return response.data;
     },
@@ -22,9 +22,9 @@ function Dashboard() {
   // Loading state
   if (isLoading) {
     return (
-       <div className="flex items-center justify-center min-h-screen  ">
-           <ClipLoader color="blue" size={70} className="font-bold" />
-         </div>
+      <div className="flex items-center justify-center min-h-screen  ">
+        <ClipLoader color="blue" size={70} className="font-bold" />
+      </div>
     );
   }
 
