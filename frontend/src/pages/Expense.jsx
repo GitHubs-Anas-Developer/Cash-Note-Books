@@ -42,8 +42,13 @@ function Expense() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen  ">
-        <ClipLoader color="blue" size={70} className="font-bold" />
+      <div className="flex items-center justify-center min-h-screen">
+        <ClipLoader
+          color="blue"
+          size={70}
+          cssOverride={{ borderWidth: "6px" }}
+          className=""
+        />
       </div>
     );
   }

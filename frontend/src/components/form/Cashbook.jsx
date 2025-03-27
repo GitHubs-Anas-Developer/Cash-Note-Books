@@ -50,7 +50,7 @@ function Cashbook() {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-8 bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div className="max-w-lg mx-auto  p-8   overflow-hidden">
       {/* Title Section */}
       <h1
         className={`text-4xl font-semibold text-center mb-8 ${

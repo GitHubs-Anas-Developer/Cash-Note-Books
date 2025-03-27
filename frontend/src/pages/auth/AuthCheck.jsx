@@ -4,7 +4,7 @@ import { baseUrl } from "../../constant/Url";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-function AuthCheck({ children }) {
+function AuthCheck({user, children ,}) {
   const navigate = useNavigate();
 
   const { data, isLoading, isError, error } = useQuery({
@@ -20,7 +20,7 @@ function AuthCheck({ children }) {
   });
 
 
-console.log("data",data);
+console.log("user",data);
 
   // Redirect to login if user is not authenticated
   useEffect(() => {
