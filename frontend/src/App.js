@@ -35,6 +35,7 @@ import SpinEdit from "./components/edit/SpinEdit";
 import { ClipLoader } from "react-spinners";
 
 function App() {
+  // Fetch profile data
   const { data, isLoading } = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
@@ -45,7 +46,7 @@ function App() {
     },
   });
 
-  // Show loading state
+  // Show loading state while the profile data is being fetched
   if (isLoading)
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -77,7 +78,7 @@ function App() {
         {/* Public Routes */}
         <Route
           path="/signup"
-          element={data ? <Navigate to="/dashboard" replace /> : <Signup />}
+          element={data ? <Navigate to="/" replace /> : <Signup />}
         />
         <Route
           path="/login"
