@@ -37,7 +37,7 @@ function Login() {
     },
     onSuccess: (response) => {
       toast.success(response.message);
-      navigate("/");
+      navigate("/dashboard");
     },
     onError: (error) => {
       toast.error(error.response?.data?.message || "Something went wrong!");
