@@ -37,7 +37,7 @@ function Login() {
     },
     onSuccess: (response) => {
       toast.success(response.message);
-      navigate("/dashboard");
+      navigate("/");
     },
     onError: (error) => {
       toast.error(error.response?.data?.message || "Something went wrong!");
@@ -50,8 +50,8 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-teal-400 flex justify-center items-center p-2 ">
-      <div className="w-full max-w-sm p-6 bg-white shadow-lg rounded-xl">
+    <div className="min-h-screen rounded-xl shadow-2xl border-black flex justify-center items-center p-2 ">
+      <div className="w-full max-w-sm p-6 bg-slate-300 shadow-2xl rounded-xl">
         <h1 className="text-3xl font-semibold text-center text-gray-800 mb-8">
           Welcome Back
         </h1>

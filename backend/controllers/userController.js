@@ -86,21 +86,19 @@ const loginUser = async (req, res) => {
 };
 
 const userLogout = (req, res) => {
-  console.log(res.clearCookie("jwt"));
-
   try {
+    // Log meaningful information
+    console.log("User logout requested");
+
+    // Clear the authentication cookie
     res.clearCookie("jwt", {
       httpOnly: true,
       sameSite: "strict",
-      secure: process.env.NODE_ENV === "production", // Secure cookies in production
     });
 
-    res.status(200).json({ message: "User logged out successfully" });
+    return res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
-    // Handle any unexpected errors
-    res.status(500).json({
-      message: "An error occurred during logout. Please try again.",
-    });
+    console.error("Logout error:", error);
   }
 };
 

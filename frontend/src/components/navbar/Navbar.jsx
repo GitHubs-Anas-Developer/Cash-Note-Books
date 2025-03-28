@@ -54,7 +54,7 @@ function Navbar({ user }) {
                 { path: "/cash-paid", label: "Cash Paid" },
                 { path: "/expense-list", label: "Expense" },
                 { path: "/notebook-list", label: "Notebook" },
-                { path: "/spin-list", label: "Spin" },
+                // { path: "/spin-list", label: "Spin" },
               ].map((link) => (
                 <Link
                   key={link.path}
@@ -82,11 +82,10 @@ function Navbar({ user }) {
 
       {/* Sidebar */}
       <div
-  className={`fixed top-0 left-0 w-64 h-full bg-white shadow-lg transition-transform duration-300 z-40 lg:hidden overflow-y-auto ${
-    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-  }`}
->
-
+        className={`fixed top-0 left-0 w-64 h-full bg-white shadow-lg transition-transform duration-300 z-40 lg:hidden overflow-y-auto ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
         <div className="p-6 relative mt-16">
           {/* Navigation Links */}
           <div className="space-y-4 ">
@@ -119,11 +118,11 @@ function Navbar({ user }) {
                 label: "Notebook",
                 icon: <FaStickyNote />,
               },
-              {
-                path: "/spin-list",
-                label: "Spin",
-                icon: <PiSpinnerBallFill />,
-              },
+              // {
+              //   path: "/spin-list",
+              //   label: "Spin",
+              //   icon: <PiSpinnerBallFill />,
+              // },
             ].map((link) => (
               <Link
                 key={link.path}

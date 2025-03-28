@@ -5,7 +5,9 @@ import toast from "react-hot-toast";
 import { baseUrl } from "../../constant/Url";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // FaEye for eye, FaEyeSlash for eyeOff
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Signup() {
+  const navigate = useNavigate();
   const [registerForm, setRegisterForm] = useState({
     username: "",
     email: "",
@@ -42,6 +44,7 @@ function Signup() {
     },
     onSuccess: (response) => {
       toast.success(response.message);
+      navigate("/");
     },
     onError: (error) => {
       toast.error(error.response?.data?.message || "Something went wrong!");
@@ -57,8 +60,8 @@ function Signup() {
   };
 
   return (
-    <div className="min-h-screen  flex items-center justify-center bg-gradient-to-br from-blue-500 to-teal-400 p-2">
-      <div className="w-full max-w-sm p-6 bg-white shadow-md rounded-lg">
+    <div className="min-h-screen  flex items-center justify-center  p-2  ">
+      <div className="w-full max-w-sm p-6 bg-slate-300 shadow-2xl rounded-lg">
         <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
           Sign Up
         </h1>
