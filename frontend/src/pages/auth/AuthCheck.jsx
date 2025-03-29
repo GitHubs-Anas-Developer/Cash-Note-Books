@@ -1,14 +1,17 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import Cookies from "js-cookie";
 
-function AuthCheck({ user }) {
-  console.log("User:", user);
+const AuthCheck = () => {
+  const token = Cookies.get("jwt");
 
-  if (!user) {
+  // If no token, redirect to login
+  if (!token) {
     return <Navigate to="/login" replace />;
   }
 
-  return <div></div>;
-}
+  // Allow access to protected routes
+  return <Outlet />;
+};
 
 export default AuthCheck;

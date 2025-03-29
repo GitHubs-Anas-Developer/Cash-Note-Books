@@ -67,7 +67,7 @@ function CashInEdit() {
   if (isError) return <p>Failed to fetch data.</p>;
 
   return (
-    <div className="max-w-lg mx-auto p-6 rounded-xl shadow-md mt-10">
+    <div className="max-w-lg mx-auto p-6  mt-10">
       <h2 className="text-3xl font-bold text-indigo-800 mb-6 text-center">
         Edit CashIn
       </h2>
