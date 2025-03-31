@@ -62,14 +62,20 @@ function CashIn() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <ClipLoader color="blue" size={70} cssOverride={{ borderWidth: "6px" }} />
+        <ClipLoader
+          color="blue"
+          size={70}
+          cssOverride={{ borderWidth: "6px" }}
+        />
       </div>
     );
   }
 
   if (isError) {
     const errorMessage =
-      error?.response?.data?.message || error?.message || "An unexpected error occurred.";
+      error?.response?.data?.message ||
+      error?.message ||
+      "An unexpected error occurred.";
     const statusCode = error?.response?.status;
     let errorIcon = <FaExclamationTriangle size={50} />;
 
@@ -79,7 +85,11 @@ function CashIn() {
     return (
       <div className="flex items-center justify-center min-h-screen text-center flex-col">
         <div className="mb-4">{errorIcon}</div>
-        <p>{statusCode === 500 ? "Server error. Please try again later." : errorMessage}</p>
+        <p>
+          {statusCode === 500
+            ? "Server error. Please try again later."
+            : errorMessage}
+        </p>
       </div>
     );
   }
@@ -95,7 +105,9 @@ function CashIn() {
             key={entry._id}
             className="p-4 bg-green-100 rounded-lg shadow-md border-l-4 border-green-500"
           >
-            <h2 className="text-lg font-semibold text-green-700">{entry.name}</h2>
+            <h2 className="text-lg font-semibold text-green-700">
+              {entry.name}
+            </h2>
             <p className="mt-2 text-gray-800">
               <strong>Amount:</strong> ₹{entry.cash_in.toLocaleString()}
             </p>
@@ -103,7 +115,8 @@ function CashIn() {
               <strong>Status:</strong> {entry.status}
             </p>
             <p className="mt-2 text-gray-800">
-              <strong>Type:</strong> {entry.transactionType === "cash_in" ? "Cash In" : "Cash Out"}
+              <strong>Type:</strong>{" "}
+              {entry.transactionType === "cash_in" ? "Cash In" : "Cash Out"}
             </p>
             <p className="mt-2 text-sm text-gray-500">
               <strong>Date:</strong>{" "}

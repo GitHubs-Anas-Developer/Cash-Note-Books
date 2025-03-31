@@ -43,7 +43,7 @@ function Login() {
 
   return (
     <div className="min-h-screen flex justify-center items-center p-2">
-      <div className="w-full max-w-sm p-6 bg-gradient-to-r from-teal-400 via-cyan-500 to-blue-500 shadow-2xl rounded-xl">
+      <div className="w-full max-w-sm p-6 bg-white shadow-2xl rounded-xl">
         <h1 className="text-3xl font-semibold text-center text-gray-800 mb-8">
           Welcome Back
         </h1>

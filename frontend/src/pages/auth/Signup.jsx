@@ -8,7 +8,7 @@ import { useAuth } from "../../context/AuthContext";
 function Signup() {
   const { register } = useAuth();
   const navigate = useNavigate();
-  
+
   const [registerForm, setRegisterForm] = useState({
     username: "",
     email: "",
@@ -65,14 +65,17 @@ function Signup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-2">
-<div className="w-full max-w-sm p-6 bg-gradient-to-r from-teal-400 via-cyan-500 to-blue-500 shadow-2xl rounded-xl">
-<h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
+      <div className="w-full max-w-sm p-6 bg-white shadow-2xl rounded-xl">
+        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
           Sign Up
         </h1>
         <form className="space-y-5" onSubmit={handleSubmit}>
           {/* Username Field */}
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700"
+            >
               Username
             </label>
             <input
@@ -89,7 +92,10 @@ function Signup() {
 
           {/* Email Field */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email Address
             </label>
             <input
@@ -106,7 +112,10 @@ function Signup() {
 
           {/* Password Field */}
           <div className="relative">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
@@ -130,7 +139,10 @@ function Signup() {
 
           {/* Confirm Password Field */}
           <div className="relative">
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm font-medium text-gray-700"
+            >
               Confirm Password
             </label>
             <input
@@ -157,7 +169,9 @@ function Signup() {
             <button
               type="submit"
               className={`w-full bg-blue-600 text-white font-medium py-3 rounded-md transition duration-300 ${
-                mutation.isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+                mutation.isLoading
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-blue-700"
               }`}
               disabled={mutation.isLoading}
             >
@@ -167,7 +181,10 @@ function Signup() {
         </form>
         <p className="mt-6 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <Link to={"/login"} className="text-blue-600 hover:underline focus:outline-none">
+          <Link
+            to={"/login"}
+            className="text-blue-600 hover:underline focus:outline-none"
+          >
             Log in here
           </Link>
         </p>

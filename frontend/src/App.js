@@ -51,11 +51,11 @@ import { useAuth } from "./context/AuthContext";
 import Footer from "./components/footer/Footer";
 
 function App() {
-  const { user } = useAuth();
+  const { fetchedUser } = useAuth();
   return (
     <div
       className={
-        user
+        fetchedUser
           ? "mt-16"
           : "mt-0 bg-gradient-to-r from-green-400 via-blue-500 to-purple-500"
       }
@@ -73,11 +73,11 @@ function App() {
         />
         <Route
           path="/signup"
-          element={user ? <Navigate to="/dashboard" replace /> : <Signup />}
+          element={fetchedUser ? <Navigate to="/dashboard" replace /> : <Signup />}
         />
         <Route
           path="/login"
-          element={user ? <Navigate to="/dashboard" replace /> : <Login />}
+          element={fetchedUser ? <Navigate to="/dashboard" replace /> : <Login />}
         />
 
         {/* Protected Routes */}
@@ -93,7 +93,7 @@ function App() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <Profile user={user} />
+              <Profile user={fetchedUser} />
             </ProtectedRoute>
           }
         />
@@ -285,10 +285,10 @@ function App() {
         {/* Catch-All Route */}
         <Route
           path="/*"
-          element={<Navigate to={user ? "/dashboard" : "/login"} />}
+          element={<Navigate to={fetchedUser ? "/dashboard" : "/login"} />}
         />
       </Routes>
-      {user ? <Footer /> : ""}
+      {fetchedUser ? <Footer /> : ""}
       <Toaster duration={5000} />
     </div>
   );

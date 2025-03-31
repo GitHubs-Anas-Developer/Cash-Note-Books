@@ -13,7 +13,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
 
 function Navbar() {
-  const { user } = useAuth();
+  const { fetchedUser } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -22,7 +22,7 @@ function Navbar() {
 
   return (
     <div className="relative">
-      {user ? (
+      {fetchedUser ? (
         <nav className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 text-white p-4 shadow-md fixed top-0 left-0 w-full z-50">
           <div className="flex justify-between items-center max-w-7xl mx-auto">
             {/* Logo */}
@@ -69,7 +69,7 @@ function Navbar() {
                 to="/profile"
                 className="bg-white text-black px-4 py-2 rounded-full shadow-md hover:bg-gray-100 transition duration-300"
               >
-                {user ? user.username : ""}
+                {fetchedUser ? fetchedUser.username : ""}
               </Link>
             </div>
           </div>
@@ -135,9 +135,7 @@ function Navbar() {
           </div>
 
           {/* Profile Section */}
-          <div
-            className="flex flex-col items-center my-6 border-2 border-transparent p-4 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow duration-300 relative before:absolute before:inset-0 before:border-2 before:border-gradient-to-r before:from-green-400 before:via-blue-500 before:to-purple-500 before:rounded-lg before:-z-10"
-          >
+          <div className="flex flex-col items-center my-6 border-2 border-transparent p-4 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow duration-300 relative before:absolute before:inset-0 before:border-2 before:border-gradient-to-r before:from-green-400 before:via-blue-500 before:to-purple-500 before:rounded-lg before:-z-10">
             <Link
               to="/profile"
               onClick={toggleSidebar} // Close sidebar when profile is clicked
@@ -145,10 +143,10 @@ function Navbar() {
             >
               <FaUserCircle size={80} className="text-gray-500 mb-3" />
               <p className="text-lg font-semibold text-blue-600 hover:underline">
-                {user?.username || "John Doe"}
+                {fetchedUser?.username || "John Doe"}
               </p>
               <p className="text-sm text-gray-600">
-                {user?.email || "johndoe@example.com"}
+                {fetchedUser?.email || "johndoe@example.com"}
               </p>
             </Link>
           </div>

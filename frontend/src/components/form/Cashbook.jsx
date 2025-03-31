@@ -53,7 +53,7 @@ function Cashbook() {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-8 overflow-hidden">
+    <div className="max-w-lg mx-auto p-8 overflow-hidden min-h-screen">
       {/* Title Section */}
       <h1
         className={`text-4xl font-semibold text-center mb-8 ${

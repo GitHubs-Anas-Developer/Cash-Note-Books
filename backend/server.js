@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://cash-note-books.onrender.com", // Update with your deployed frontend URL
+    origin: " http://localhost:3000", // Update with your deployed frontend URL
     credentials: true, // Allow cookies
   })
 );
@@ -40,6 +40,7 @@ app.use(
 app.get("/authCheck", protectRoute, (req, res) => {
   res.status(200).json({ message: "You have access!", user: req.user });
 });
+
 
 // Route handlers
 app.use("/api/auth", authRoutes);

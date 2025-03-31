@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { baseUrl } from "../constant/Url";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from "../context/AuthContext";
 function Dashboard() {
   const navigate = useNavigate();
 

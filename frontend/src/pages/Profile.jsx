@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaUserCircle, FaEnvelope } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -8,7 +8,10 @@ import { baseUrl } from "../constant/Url";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
-  const { user } = useAuth();
+  const { user, logout,fetchedUser } = useAuth();
+
+  console.log("fetchedUser",user);
+  
   const navigate = useNavigate();
 
   // Mutation for logout
@@ -25,9 +28,16 @@ function Profile() {
     },
     onSuccess: () => {
       toast.success("Logged out successfully.");
+      logout(); // Clear user authentication state
       navigate("/login");
     },
   });
+
+  useEffect(() => {
+    if (!fetchedUser) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6 overflow-hidden">
@@ -36,11 +46,11 @@ function Profile() {
         <div className="flex flex-col items-center text-center mb-6">
           <FaUserCircle size={100} className="text-gray-500 mb-4" />
           <h2 className="text-2xl font-semibold">
-            {user?.username || "John Doe"}
+            {fetchedUser?.username || "John Doe"}
           </h2>
           <p className="text-gray-500 flex items-center">
             <FaEnvelope className="mr-2" />
-            {user?.email || "johndoe@example.com"}
+            {fetchedUser?.email || "johndoe@example.com"}
           </p>
         </div>
 
