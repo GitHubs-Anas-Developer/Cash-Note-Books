@@ -30,9 +30,8 @@ function Login() {
       navigate("/dashboard"); // Redirect on success
     },
     onError: (error) => {
+      console.log("error", error);
 
-      console.log("error",error);
-      
       toast.error(error.response?.data?.message || "Login failed");
     },
   });
@@ -44,14 +43,17 @@ function Login() {
 
   return (
     <div className="min-h-screen flex justify-center items-center p-2">
-<div className="w-full max-w-sm p-6 bg-gradient-to-r from-teal-400 via-cyan-500 to-blue-500 shadow-2xl rounded-xl">
-<h1 className="text-3xl font-semibold text-center text-gray-800 mb-8">
+      <div className="w-full max-w-sm p-6 bg-gradient-to-r from-teal-400 via-cyan-500 to-blue-500 shadow-2xl rounded-xl">
+        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-8">
           Welcome Back
         </h1>
         <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Email Field */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email Address
             </label>
             <input
@@ -67,7 +69,10 @@ function Login() {
 
           {/* Password Field */}
           <div className="relative">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
@@ -93,7 +98,9 @@ function Login() {
             <button
               type="submit"
               className={`w-full bg-blue-600 text-white font-medium py-3 rounded-md transition duration-300 ${
-                mutation.isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+                mutation.isLoading
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-blue-700"
               }`}
               disabled={mutation.isLoading}
             >
@@ -105,7 +112,10 @@ function Login() {
         {/* Sign Up Redirect */}
         <p className="mt-6 text-center text-sm text-gray-600">
           Don't have an account?{" "}
-          <Link to={"/signup"} className="text-blue-600 hover:underline focus:outline-none">
+          <Link
+            to={"/signup"}
+            className="text-blue-600 hover:underline focus:outline-none"
+          >
             Sign up here
           </Link>
         </p>

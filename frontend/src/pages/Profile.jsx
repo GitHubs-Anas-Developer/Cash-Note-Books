@@ -5,21 +5,27 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
 import { baseUrl } from "../constant/Url";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   // Mutation for logout
   const logoutMutation = useMutation({
     mutationFn: async () => {
-      await axios.post(`${baseUrl}/api/auth/logout`, {}, { withCredentials: true });
+      await axios.post(
+        `${baseUrl}/api/auth/logout`,
+        {},
+        { withCredentials: true }
+      );
     },
     onError: () => {
       toast.error("Error logging out. Please try again.");
     },
     onSuccess: () => {
       toast.success("Logged out successfully.");
-      window.location.reload(); // Reload to clear session
+      navigate("/");
     },
   });
 
@@ -29,7 +35,9 @@ function Profile() {
         {/* Profile Section */}
         <div className="flex flex-col items-center text-center mb-6">
           <FaUserCircle size={100} className="text-gray-500 mb-4" />
-          <h2 className="text-2xl font-semibold">{user?.username || "John Doe"}</h2>
+          <h2 className="text-2xl font-semibold">
+            {user?.username || "John Doe"}
+          </h2>
           <p className="text-gray-500 flex items-center">
             <FaEnvelope className="mr-2" />
             {user?.email || "johndoe@example.com"}
