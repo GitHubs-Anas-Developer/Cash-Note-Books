@@ -95,7 +95,7 @@ function CashIn() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <div className="max-w-4xl mx-auto p-4 min-h-screen">
       <h1 className="text-2xl font-extrabold text-gray-800 mb-6 text-center">
         Cash In Details
       </h1>
