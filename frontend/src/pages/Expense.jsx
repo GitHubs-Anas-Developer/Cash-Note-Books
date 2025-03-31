@@ -69,7 +69,7 @@ function Expense() {
   return (
     <div className="max-w-5xl mx-auto p-4  to-blue-50 rounded-xl  mt-10">
       <div className="text-center mb-10">
-        <h2 className="text-4xl font-bold text-indigo-900">Expense Details</h2>
+        <h2 className="text-3xl font-bold text-indigo-900 mt-5">Expense Details</h2>
 
         <Link
           to={`/expenses/add/${data?.expense._id}`}

@@ -39,7 +39,9 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data); // Set user state after login
       return res.data;
     } catch (error) {
-      throw error.response?.data || "Login failed";
+      console.log("error", error);
+
+      throw error || "Login failed";
     }
   };
 
@@ -49,14 +51,18 @@ export const AuthProvider = ({ children }) => {
       const res = await axios.post(`${baseUrl}/api/auth/register`, userData);
       return res.data;
     } catch (error) {
-      throw error.response?.data || "Registration failed";
+      throw error || "Registration failed";
     }
   };
 
   // Logout function
   const logout = async () => {
     try {
-      await axios.post(`${baseUrl}/api/auth/logout`, {}, { withCredentials: true });
+      await axios.post(
+        `${baseUrl}/api/auth/logout`,
+        {},
+        { withCredentials: true }
+      );
       queryClient.clear(); // Clear all cached queries
       setUser(null); // Clear user state
     } catch (error) {
@@ -65,7 +71,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, isError, login, register, logout ,fetchedUser}}>
+    <AuthContext.Provider
+      value={{ user, isLoading, isError, login, register, logout, fetchedUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

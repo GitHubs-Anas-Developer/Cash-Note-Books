@@ -98,7 +98,7 @@ function ExpenseList() {
 
   return (
     <div className="max-w-6xl mx-auto p-4 min-h-screen">
-      <h2 className="text-3xl font-bold text-gray-800 text-center mb-10">
+      <h2 className="text-3xl font-bold text-gray-800 text-center mb-10 mt-5">
         Expense List
       </h2>
 

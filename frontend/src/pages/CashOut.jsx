@@ -94,8 +94,8 @@ function CashOut() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-extrabold text-gray-800 mb-6 text-center">
+    <div className="max-w-4xl mx-auto p-4 min-h-screen">
+      <h1 className="text-3xl font-extrabold text-gray-800 mb-6 text-center mt-5">
         Cash Out Details
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

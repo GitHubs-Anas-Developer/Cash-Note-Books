@@ -42,7 +42,7 @@ function SpinForm() {
   };
   return (
     <div className="max-w-lg mx-auto p-4 rounded-lg ">
-      <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
+      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
         New Spin Group
       </h1>
 

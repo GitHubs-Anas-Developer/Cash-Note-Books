@@ -56,7 +56,7 @@ function Cashbook() {
     <div className="max-w-lg mx-auto p-8 overflow-hidden min-h-screen">
       {/* Title Section */}
       <h1
-        className={`text-4xl font-semibold text-center mb-8 ${
+        className={`text-3xl font-semibold text-center mb-8 ${
           state?.option === "cash_in" ? "text-green-600" : "text-red-600"
         }`}
       >

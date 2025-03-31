@@ -49,7 +49,7 @@ function AddExpense() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 rounded-xl  mt-10">
+    <div className="max-w-md mx-auto p-6 rounded-xl  mt-10 min-h-screen">
       <h2 className="text-3xl font-bold text-indigo-800 mb-6 text-center">
         Add Expense
       </h2>

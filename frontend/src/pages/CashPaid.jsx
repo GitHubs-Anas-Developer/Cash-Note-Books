@@ -67,8 +67,8 @@ function CashPaid() {
 
   // Data rendering
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+    <div className="p-6 max-w-6xl mx-auto min-h-screen">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center mt-5">
         Cash Paid
       </h1>
       {data?.cashPaid?.length > 0 ? (

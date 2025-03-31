@@ -81,8 +81,8 @@ function NotebookForm() {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-4  rounded-lg ">
-      <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
+    <div className="max-w-lg mx-auto p-4  rounded-lg min-h-screen">
+      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6 mt-5">
         Add Notebook Entry
       </h1>
       <form onSubmit={handleSubmit} className="space-y-4">

@@ -78,8 +78,8 @@ function ExpenseViewEdit() {
 
   // Main content
   return (
-    <div className="max-w-lg mx-auto p-6 rounded-xl mt-10 ">
-      <h2 className="text-3xl font-bold text-indigo-800 mb-6 text-center">
+    <div className="max-w-lg mx-auto p-6 rounded-xl mt-10 min-h-screen">
+      <h2 className="text-3xl font-bold text-indigo-800 mb-6 text-center mt-5">
         Edit Expense
       </h2>
 
