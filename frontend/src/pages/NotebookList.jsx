@@ -100,7 +100,7 @@ function NotebookList() {
 
   // Success state
   return (
-    <div className="max-w-5xl mx-auto p-4">
+    <div className="max-w-5xl mx-auto p-4 min-h-screen">
       <h1 className="text-2xl font-extrabold text-gray-800 mb-6 text-center">
         Notebook List
       </h1>

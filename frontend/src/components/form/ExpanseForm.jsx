@@ -79,7 +79,7 @@ function ExpenseForm() {
       toast.error("Error submitting form: " + error.message);
     },
     onSuccess: (data) => {
-      toast.success("Form submitted successfully");
+      toast.success("Expenses added successfully");
       // Reset the form after successful submission
       setExpenseCategory({ category: "" });
       setExpenses([{ title: "", amount: "", date: "" }]);

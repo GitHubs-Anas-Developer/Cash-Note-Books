@@ -119,13 +119,6 @@ function Cashbook() {
           </button>
         </div>
       </form>
-
-      {/* Footer Section */}
-      <div className="mt-6 text-center">
-        <p className="text-sm text-gray-500">
-          Double-check the details before submitting.
-        </p>
-      </div>
     </div>
   );
 }

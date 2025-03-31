@@ -65,8 +65,8 @@ function Signup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-2">
-      <div className="w-full max-w-sm p-6 bg-slate-300 shadow-2xl rounded-lg">
-        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
+<div className="w-full max-w-sm p-6 bg-gradient-to-r from-teal-400 via-cyan-500 to-blue-500 shadow-2xl rounded-xl">
+<h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
           Sign Up
         </h1>
         <form className="space-y-5" onSubmit={handleSubmit}>

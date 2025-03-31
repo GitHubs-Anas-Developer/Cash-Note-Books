@@ -67,7 +67,7 @@ function NotebookForm() {
       toast.error("Error submitting form: " + error.message);
     },
     onSuccess: (data) => {
-      toast.success("Form submitted successfully");
+      toast.success("Note added successfully");
       // Reset the form after successful submission
       setNotebook({ heading: "", description: "" });
       setNotes([{ title: "", content: "" }]);

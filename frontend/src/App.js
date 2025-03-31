@@ -48,11 +48,18 @@ import SpinEdit from "./components/edit/SpinEdit";
 
 import ProtectedRoute from "./pages/auth/AuthCheck";
 import { useAuth } from "./context/AuthContext";
+import Footer from "./components/footer/Footer";
 
 function App() {
-  const { user } = useAuth();  
+  const { user } = useAuth();
   return (
-    <div className={user ? "mt-16" : "mt-0"}>
+    <div
+      className={
+        user
+          ? "mt-16"
+          : "mt-0 bg-gradient-to-r from-green-400 via-blue-500 to-purple-500"
+      }
+    >
       <Navbar />
       <Routes>
         {/* Public Routes */}
@@ -281,6 +288,7 @@ function App() {
           element={<Navigate to={user ? "/dashboard" : "/login"} />}
         />
       </Routes>
+      {user ? <Footer /> : ""}
       <Toaster duration={5000} />
     </div>
   );

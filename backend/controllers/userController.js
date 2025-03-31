@@ -6,7 +6,6 @@ const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
     console.log(username, email, password);
-    
 
     // Email validation regex
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -62,8 +61,6 @@ const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    
-
     const user = await User.findOne({ email: email });
 
     if (!user) {
@@ -91,20 +88,23 @@ const loginUser = async (req, res) => {
 
 const userLogout = (req, res) => {
   try {
-    // Log meaningful information
     console.log("User logout requested");
 
     // Clear the authentication cookie
     res.clearCookie("jwt", {
       httpOnly: true,
-      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production", // Secure only in production
+      sameSite: "None", // Allow cookies across different domains
     });
 
     return res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
     console.error("Logout error:", error);
+    return res.status(500).json({ message: "Logout failed" });
   }
 };
+
+module.exports = userLogout;
 
 const getUser = async (req, res) => {
   try {

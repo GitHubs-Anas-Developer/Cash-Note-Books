@@ -14,14 +14,11 @@ import { useAuth } from "../../context/AuthContext";
 
 function Navbar() {
   const { user } = useAuth();
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
-  // const userData = user ? user : null;
 
   return (
     <div className="relative">
@@ -80,7 +77,6 @@ function Navbar() {
       ) : (
         ""
       )}
-      {/* Top Navbar */}
 
       {/* Sidebar */}
       <div
@@ -129,7 +125,7 @@ function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
-                onClick={toggleSidebar}
+                onClick={toggleSidebar} // Close sidebar when any link is clicked
                 className="flex items-center text-gray-800 bg-gray-100 hover:bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 hover:text-white px-4 py-3 rounded-md transition duration-300 shadow-sm"
               >
                 <span className="mr-3 text-lg">{link.icon}</span>
@@ -139,9 +135,12 @@ function Navbar() {
           </div>
 
           {/* Profile Section */}
-          <div className="flex flex-col items-center my-6 border-2 border-transparent p-4 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow duration-300 relative before:absolute before:inset-0 before:border-2 before:border-gradient-to-r before:from-green-400 before:via-blue-500 before:to-purple-500 before:rounded-lg before:-z-10">
+          <div
+            className="flex flex-col items-center my-6 border-2 border-transparent p-4 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow duration-300 relative before:absolute before:inset-0 before:border-2 before:border-gradient-to-r before:from-green-400 before:via-blue-500 before:to-purple-500 before:rounded-lg before:-z-10"
+          >
             <Link
               to="/profile"
+              onClick={toggleSidebar} // Close sidebar when profile is clicked
               className="flex flex-col items-center text-center"
             >
               <FaUserCircle size={80} className="text-gray-500 mb-3" />
@@ -155,8 +154,6 @@ function Navbar() {
           </div>
         </div>
       </div>
-
-      {/* Overlay */}
     </div>
   );
 }

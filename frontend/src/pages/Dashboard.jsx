@@ -58,7 +58,7 @@ function Dashboard() {
 
   return (
     <div className="  sm:p-12">
-      <div className="max-w-6xl mx-auto  p-6 sm:p-10 overflow-hidden">
+      <div className="max-w-6xl mx-auto  p-6 sm:p-10 min-h-screen overflow-hidden">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8">
           <div className="flex flex-wrap gap-4 sm:gap-6">
