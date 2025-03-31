@@ -45,25 +45,15 @@ import Spin from "./pages/Spin";
 import SpinAddUser from "./components/add/SpinAddUser";
 import SpinWinner from "./pages/SpinWinner";
 import SpinEdit from "./components/edit/SpinEdit";
-import { baseUrl } from "./constant/Url";
 
 import ProtectedRoute from "./pages/auth/AuthCheck";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
-  // Fetch authenticated user profile
-  const { data: user } = useQuery({
-    queryKey: ["profile"],
-    queryFn: async () => {
-      const response = await axios.get(`${baseUrl}/api/auth/profile`, {
-        withCredentials: true,
-      });
-      return response.data;
-    },
-  });
-
+  const { user } = useAuth();
   return (
     <div className={user ? "mt-16" : "mt-0"}>
-      <Navbar user={user} />
+      <Navbar />
       <Routes>
         {/* Public Routes */}
         <Route
@@ -74,14 +64,8 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/signup"
-          element={user ? <Navigate to="/dashboard" replace /> : <Signup />}
-        />
-        <Route
-          path="/login"
-          element={user ? <Navigate to="/dashboard" replace /> : <Login />}
-        />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
 
         {/* Protected Routes */}
         <Route

@@ -4,12 +4,14 @@ import { baseUrl } from "../constant/Url";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
+import { useAuth } from "../context/AuthContext";
 
-function Profile({ user }) {
+function Profile() {
   const [username, setUsername] = useState(user?.username || "John Doe");
   const [email, setEmail] = useState(user?.email || "johndoe@example.com");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const { user } = useAuth();
 
   // Mutation for logout
   const logoutMutation = useMutation({

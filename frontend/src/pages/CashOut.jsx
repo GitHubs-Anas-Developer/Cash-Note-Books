@@ -16,7 +16,7 @@ import { ClipLoader } from "react-spinners";
 function CashOut() {
   const queryClient = new QueryClient();
 
-  const { data, isLoading, isError, refetch, error } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["cash_Out"],
     queryFn: async () => {
       const response = await axios.get(`${baseUrl}/api/cashbook/cash-out`, {

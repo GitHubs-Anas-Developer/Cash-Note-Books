@@ -9,10 +9,12 @@ import {
   FaRegCreditCard,
   FaRegMoneyBillAlt,
 } from "react-icons/fa";
-import { PiSpinnerBallFill } from "react-icons/pi";
 import { FaUserCircle } from "react-icons/fa";
+import { useAuth } from "../../context/AuthContext";
 
-function Navbar({ user }) {
+function Navbar() {
+  const { user } = useAuth();
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
