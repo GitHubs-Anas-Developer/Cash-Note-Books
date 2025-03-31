@@ -8,6 +8,7 @@ const SpinWinSchema = new mongoose.Schema(
       required: true, // Ensure the spin is linked to a user
     },
 
+    
     category: {
       type: String,
       required: true,

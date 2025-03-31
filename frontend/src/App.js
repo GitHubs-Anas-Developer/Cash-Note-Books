@@ -50,7 +50,7 @@ import ProtectedRoute from "./pages/auth/AuthCheck";
 import { useAuth } from "./context/AuthContext";
 
 function App() {
-  const { user } = useAuth();
+  const { user } = useAuth();  
   return (
     <div className={user ? "mt-16" : "mt-0"}>
       <Navbar />
@@ -64,8 +64,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/signup"
+          element={user ? <Navigate to="/dashboard" replace /> : <Signup />}
+        />
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/dashboard" replace /> : <Login />}
+        />
 
         {/* Protected Routes */}
         <Route
