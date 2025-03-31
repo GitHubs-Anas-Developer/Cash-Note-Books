@@ -1,1 +1,1 @@
-export const baseUrl = "https://cash-note-books.onrender.com";
+export const baseUrl = "https://cash-note-books-server.onrender.com";
