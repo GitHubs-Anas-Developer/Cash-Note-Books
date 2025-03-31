@@ -26,8 +26,8 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL, // ✅ Add frontend URL
-    credentials: true, // ✅ Allow cookies
+    origin: "https://cash-note-books.onrender.com", // Update with your deployed frontend URL
+    credentials: true, // Allow cookies
   })
 );
 
