@@ -25,7 +25,7 @@ function Profile() {
     },
     onSuccess: () => {
       toast.success("Logged out successfully.");
-      navigate("/");
+      navigate("/login");
     },
   });
 
