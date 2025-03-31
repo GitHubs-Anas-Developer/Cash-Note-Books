@@ -3,7 +3,6 @@ import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseUrl } from "../constant/Url";
 import {
-  FaEdit,
   FaExclamationTriangle,
   FaSearch,
   FaServer,

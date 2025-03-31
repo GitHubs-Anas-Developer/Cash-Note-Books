@@ -14,7 +14,7 @@ function SpinAddUser() {
   });
 
   // Use useMutation for the form submission
-  const { mutate, isLoading, isError, isSuccess, error } = useMutation({
+  const { mutate, isLoading, isError, error } = useMutation({
     mutationFn: async (newExpense) => {
       const response = await axios.post(
         `${baseUrl}/api/spin/single/participants/add/${id}`,

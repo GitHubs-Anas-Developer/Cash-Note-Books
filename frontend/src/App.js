@@ -3,7 +3,6 @@ import "./App.css";
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { ClipLoader } from "react-spinners";
 
 // Components
 import Navbar from "./components/navbar/Navbar";
@@ -52,7 +51,7 @@ import ProtectedRoute from "./pages/auth/AuthCheck";
 
 function App() {
   // Fetch authenticated user profile
-  const { data: user, isLoading } = useQuery({
+  const { data: user } = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
       const response = await axios.get(`${baseUrl}/api/auth/profile`, {
@@ -70,11 +69,9 @@ function App() {
         <Route
           path="/"
           element={
-            user ? (
-              <Navigate to="/dashboard" replace />
-            ) : (
-              <Navigate to="/login" replace />
-            )
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
           }
         />
         <Route
