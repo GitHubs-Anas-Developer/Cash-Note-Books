@@ -5,6 +5,8 @@ const generateToken = require("../utils/generateToken");
 const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
+    console.log(username, email, password);
+    
 
     // Email validation regex
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -59,6 +61,8 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    
 
     const user = await User.findOne({ email: email });
 

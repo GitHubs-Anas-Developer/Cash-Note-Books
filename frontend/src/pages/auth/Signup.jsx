@@ -1,13 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { baseUrl } from "../../constant/Url";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // FaEye for eye, FaEyeSlash for eyeOff
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+
 function Signup() {
+  const { register } = useAuth();
   const navigate = useNavigate();
+  
   const [registerForm, setRegisterForm] = useState({
     username: "",
     email: "",
@@ -18,32 +19,34 @@ function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Toggle password visibility
   const togglePassword = (e) => {
-    e.preventDefault(); // Prevent button click from submitting the form
+    e.preventDefault();
     setShowPassword(!showPassword);
   };
 
   const toggleConfirmPassword = (e) => {
-    e.preventDefault(); // Prevent button click from submitting the form
+    e.preventDefault();
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setRegisterForm({ ...registerForm, [name]: value });
   };
 
+  // Use mutation for registration
   const mutation = useMutation({
     mutationFn: async () => {
-      const response = await axios.post(
-        `${baseUrl}/api/auth/register`,
-        registerForm,
-        { withCredentials: true }
-      );
-      return response.data;
+      return await register({
+        username: registerForm.username,
+        email: registerForm.email,
+        password: registerForm.password,
+      });
     },
     onSuccess: (response) => {
-      toast.success(response.message);
+      toast.success(response.message || "Registration successful!");
       navigate("/dashboard");
     },
     onError: (error) => {
@@ -51,6 +54,7 @@ function Signup() {
     },
   });
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (registerForm.password !== registerForm.confirmPassword) {
@@ -60,7 +64,7 @@ function Signup() {
   };
 
   return (
-    <div className="min-h-screen  flex items-center justify-center  p-2  ">
+    <div className="min-h-screen flex items-center justify-center p-2">
       <div className="w-full max-w-sm p-6 bg-slate-300 shadow-2xl rounded-lg">
         <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
           Sign Up
@@ -68,10 +72,7 @@ function Signup() {
         <form className="space-y-5" onSubmit={handleSubmit}>
           {/* Username Field */}
           <div>
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
               Username
             </label>
             <input
@@ -82,15 +83,13 @@ function Signup() {
               className="w-full mt-1 border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 border"
               value={registerForm.username}
               onChange={handleInputChange}
+              required
             />
           </div>
 
           {/* Email Field */}
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email Address
             </label>
             <input
@@ -101,15 +100,13 @@ function Signup() {
               className="w-full mt-1 border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 border"
               value={registerForm.email}
               onChange={handleInputChange}
+              required
             />
           </div>
 
           {/* Password Field */}
           <div className="relative">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
             </label>
             <input
@@ -120,6 +117,7 @@ function Signup() {
               className="w-full mt-1 border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 border"
               value={registerForm.password}
               onChange={handleInputChange}
+              required
             />
             <button
               type="button"
@@ -132,10 +130,7 @@ function Signup() {
 
           {/* Confirm Password Field */}
           <div className="relative">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
               Confirm Password
             </label>
             <input
@@ -146,6 +141,7 @@ function Signup() {
               className="w-full mt-1 border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 border"
               value={registerForm.confirmPassword}
               onChange={handleInputChange}
+              required
             />
             <button
               type="button"
@@ -161,9 +157,7 @@ function Signup() {
             <button
               type="submit"
               className={`w-full bg-blue-600 text-white font-medium py-3 rounded-md transition duration-300 ${
-                mutation.isLoading
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-blue-700"
+                mutation.isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
               }`}
               disabled={mutation.isLoading}
             >
@@ -173,10 +167,7 @@ function Signup() {
         </form>
         <p className="mt-6 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <Link
-            to={"/login"}
-            className="text-blue-600 hover:underline focus:outline-none"
-          >
+          <Link to={"/login"} className="text-blue-600 hover:underline focus:outline-none">
             Log in here
           </Link>
         </p>
