@@ -93,7 +93,7 @@ function ExpenseForm() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-8  rounded-2xl   mt-10">
+    <div className="max-w-4xl mx-auto p-8  rounded-2xl   mt-10 min-h-screen">
       <h2 className="text-3xl font-semibold text-center text-black mb-6">
          New Expense
       </h2>

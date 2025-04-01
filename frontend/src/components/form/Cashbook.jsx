@@ -4,9 +4,12 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { baseUrl } from "../../constant/Url";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function Cashbook() {
   const { state } = useLocation();
+
+  const navigate = useNavigate()
 
   const [cashForm, setCashForm] = useState({
     name: "",
@@ -38,6 +41,7 @@ function Cashbook() {
     },
     onSuccess: () => {
       toast.success(`${state.option} Added successfully!`);
+      navigate("/dashboard")
       setCashForm({
         name: "",
         amount: "",
